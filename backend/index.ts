@@ -1,5 +1,6 @@
 import express from 'express';
 import { query } from "./src/db.js";
+import { Person } from './src/Entities.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,10 +34,10 @@ app.get("/persons/:id", async (req, res) => {
   }
 });
 
-
 // Insertion in the db
 app.post("/persons", async (req, res) => {
-  const { name, age, document, email, password, phone, documentStatus } = req.body;
+  const personData: Omit<Person, 'id' | 'createdAt'> = req.body;
+  const { name, age, document, email, password, phone, documentStatus } = personData;
   if (!name || !age || !document || !email || !password) {
     return res.status(400).send("Missing required fields: name, age, document, email, password");
   }
@@ -45,7 +46,7 @@ app.post("/persons", async (req, res) => {
       "INSERT INTO persons (name, age, document, email, password, phone, document_status) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;",
       [name, age, document, email, password, phone, documentStatus]
     );
-    res.status(201).json(result.rows[0]);
+    res.status(201).json(result.rows[0] as Person);
   } catch (e) {
     console.log(e);
     res.status(500).send("Error inserting new person");
