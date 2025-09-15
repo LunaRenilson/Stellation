@@ -1,23 +1,20 @@
-# Use the official Node.js 20 Alpine image as the base
+# Usa a imagem oficial do Node.js 20 no Alpine
 FROM node:20-alpine
 
-# Set the working directory inside the container
+# Define diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to install dependencies
+# Copia arquivos de dependência primeiro (para otimizar cache)
 COPY package*.json ./
 
-# Install all dependencies (including dev dependencies for TypeScript compilation)
-RUN npm ci
-
-# Copy the rest of the application code
+# Copia o restante do código da aplicação
 COPY . .
 
-# Compile TypeScript to JavaScript
+# Compila TypeScript para JavaScript
 RUN npx tsc
 
-# Expose the port the app runs on
+# Expõe a porta do backend
 EXPOSE 3000
 
-# Command to run the application
+# Comando padrão para rodar a aplicação
 CMD ["npm", "start"]
