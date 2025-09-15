@@ -7,6 +7,9 @@ WORKDIR /app
 # Copia arquivos de dependência primeiro (para otimizar cache)
 COPY package*.json ./
 
+# Instala as dependências
+RUN npm install
+
 # Copia o restante do código da aplicação
 COPY . .
 

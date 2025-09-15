@@ -7,8 +7,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 
-
-// Teste do banco
+// get all persons
 app.get("/persons", async (_req, res) => {
   try {
     const result = await query("SELECT * FROM persons;");
@@ -19,8 +18,23 @@ app.get("/persons", async (_req, res) => {
   }
 })
 
+// Get person by ID
+app.get("/persons/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await query("SELECT * FROM persons WHERE id = $1;", [id]);
+    if (result.rows.length === 0) {
+      return res.status(404).send("Person not found");
+    }
+    res.json(result.rows[0]);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send("Error retrieving person");
+  }
+});
 
-// insertion test
+
+// Insertion in the db
 app.post("/persons", async (req, res) => {
   const { name, age, document, email, password, phone, documentStatus } = req.body;
   if (!name || !age || !document || !email || !password) {
