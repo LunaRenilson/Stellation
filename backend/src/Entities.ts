@@ -1,4 +1,4 @@
-interface Person {
+export interface Person {
     id: number;
     name: string;
     age: number;   
@@ -10,7 +10,7 @@ interface Person {
     createdAt: Date;
 }
 
-interface Property {
+export interface Property {
     id: number;
     ownerId: number;
     description: string;
@@ -29,7 +29,7 @@ interface Property {
     createdAt: Date;
 }
 
-interface Contract {
+export interface Contract {
     id: number;
     propertyId: number;
     tenantId: number;
@@ -42,7 +42,7 @@ interface Contract {
 
 }
 
-interface Post {
+export interface Post {
     id: number;
     propertyId: number;
     title: string;
@@ -51,7 +51,7 @@ interface Post {
     status: "active" | "inactive" | "archived";
 }
 
-interface Payment {
+export interface Payment {
     id: number;
     contractId: number;         // FK -> Contract.id
     amount: number;
