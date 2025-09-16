@@ -39,16 +39,6 @@ export interface Contract {
     startDate: Date;
     endDate: Date;
     paymentStatus: "pending" | "paid" | "late";
-
-}
-
-export interface Post {
-    id: number;
-    propertyId: number;
-    title: string;
-    content: string;
-    createdAt: Date;
-    status: "active" | "inactive" | "archived";
 }
 
 export interface Payment {
@@ -59,4 +49,13 @@ export interface Payment {
     paidAt?: Date;
     txHash?: string;            // hash da transação Stellar
     status: "pending" | "paid" | "late";
+}
+
+export interface Post {
+    id: number;
+    propertyId: number;
+    title: string;
+    content: string;
+    createdAt: Date;
+    status: "active" | "inactive" | "archived";
 }
