@@ -1,0 +1,10 @@
+# Project folders/files to be ignored by Git
+./node_modules
+.DS_Store
+.env
+dist
+coverage
+logs
+*.log
+.idea
+.vscode
