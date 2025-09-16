@@ -1,4 +1,14 @@
 services:
+  # Frontend Service
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    restart: always
+    ports:
+      - "4173:4173"
+    depends_on:
+      - backend
+
   # Backend Service
   backend:
     container_name: backend
