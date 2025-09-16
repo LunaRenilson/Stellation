@@ -7,6 +7,8 @@ CREATE TABLE IF NOT EXISTS persons (
     email VARCHAR(150) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
+    public_key VARCHAR(255),  -- chave pública da carteira Stellar
+    private_key VARCHAR(255), -- chave privada da carteira Stellar
     document_status BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

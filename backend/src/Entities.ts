@@ -7,6 +7,8 @@ export interface Person {
     password: string;
     phone: string;
     documentStatus: boolean;
+    publicKey?: string;    // chave pública da carteira Stellar
+    privateKey?: string;   // chave privada da carteira Stellar
     createdAt: Date;
 }
 
