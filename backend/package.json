@@ -20,11 +20,13 @@
     "dev": "tsc --watch"
   },
   "dependencies": {
+    "@stellar/stellar-sdk": "^14.1.1",
     "express": "^5.1.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/pg": "^8.15.5",
+    "@types/stellar-sdk": "^0.11.1",
     "dotenv": "^17.2.2",
     "nodemon": "^3.1.10",
     "typescript": "^5.9.2"

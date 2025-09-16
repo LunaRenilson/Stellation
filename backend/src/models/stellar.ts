@@ -1,35 +1,52 @@
-import Server, { Keypair, Networks, TransactionBuilder, Operation, Asset } from 'stellar-sdk';
-import { SorobanClient } from 'stellar-sdk';
+import { SorobanClient, Address, Contract } from 'stellar-sdk';
 
-const server = new Server('https://horizon-testnet.stellar.org');
 const sorobanServer = new SorobanClient.Server('https://rpc-futurenet.stellar.org');
+const contractId = 'SEU_CONTRACT_ID'; // Substitua pelo endereço do seu contrato
+const contractId = "CAQTKL46VVXCU2765KTCLENVSAJBALM3QP2ZSZDUHRYSBH2EBQ2VXSOA"
 
-const pair = Keypair.random();
-console.log('Public Key:', pair.publicKey());
-console.log('Secret Key:', pair.secret());
+export async function getBalance(address: string): Promise<number> {
+  // O endereço deve ser passado como Address
+  const addr = new Address(address);
 
-// https://friendbot.stellar.org/?addr=YOUR_PUBLIC_KEY
+  // Monta a chamada ao método do contrato
+  const result = await sorobanServer.callContract({
+    contractId,
+    function: 'read_balance',
+    args: [addr.toString()],
+  });
 
-const contractId = 'SEU_CONTRACT_ID'; // substitua pelo seu
-
-// Exemplo: chamar um método do contrato
-const result = await sorobanServer.getContractData(contractId, 'nome_do_metodo', [parametros]);
-
-
-async function registrarContratoStellar(tenantPublicKey: string, landlordPublicKey: string, valor: number) {
-  // 1. Buscar conta do proprietário
-  // 2. Montar chamada ao contrato Soroban (ex: 'register_contract')
-  // 3. Criar e assinar transação
-  // 4. Enviar para a testnet
-  // 5. Retornar resultado (hash, status, etc)
+  // O resultado pode variar conforme o contrato, ajuste conforme necessário
+  return Number(result.result);
 }
 
-// O fluxo básico dessa função é:
+// Exemplo: chamar um método do contrato
+const result = await sorobanServer.getContractData(contractId, 'check_nonnegative_amout', [5]);
 
-// Montar a transação: Criar uma transação Stellar que chama o método do contrato inteligente Soroban responsável por registrar o contrato. Os parâmetros (chaves públicas e valor) são passados para o método do contrato.
+console.log(result)
 
-// Assinar a transação: A transação deve ser assinada pela conta que está realizando a operação (geralmente o proprietário ou um administrador).
+// async function registrarContratoStellar(tenantPublicKey: string, landlordPublicKey: string, valor: number) {
+//     // 1. Montar a transação: Criar uma transação Stellar que chama o método do contrato inteligente Soroban responsável por registrar o contrato. Os parâmetros (chaves públicas e valor) são passados para o método do contrato.
+//     // 2. Assinar a transação: A transação deve ser assinada pela conta que está realizando a operação (geralmente o proprietário ou um administrador).
+//     // 3. Enviar para a rede: A transação é enviada para a testnet da Stellar usando o SDK.
+//     // 4. Receber resposta: O resultado da operação (sucesso, erro, hash da transação) é retornado para ser salvo ou exibido.
+// }
 
-// Enviar para a rede: A transação é enviada para a testnet da Stellar usando o SDK.
 
-// Receber resposta: O resultado da operação (sucesso, erro, hash da transação) é retornado para ser salvo ou exibido.
+// // Consulting transactions of an account
+// const accountId = 'GBBORXCY3PQRRDLJ7G7DWHQBXPCJVFGJ4RGMJQVAX6ORAUH6RWSPP6FM';
+
+// server.transactions()
+//     .forAccount(accountId)
+//     .call()
+//     .then(function (page) {
+//         console.log('Page 1: ');
+//         console.log(page.records);
+//         return page.next();
+//     })
+//     .then(function (page) {
+//         console.log('Page 2: ');
+//         console.log(page.records);
+//     })
+//     .catch(function (err) {
+//         console.log(err);
+//     });

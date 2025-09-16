@@ -27,3 +27,4 @@ INSERT INTO posts (property_id, title, content, status) VALUES
 INSERT INTO payments (contract_id, amount, due_date, status) VALUES
 (1, 1500.00, '2023-01-01', 'pending'),
 (2, 2500.00, '2023-02-01', 'paid');
+w
