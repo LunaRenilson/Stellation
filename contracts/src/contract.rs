@@ -186,6 +186,16 @@ impl token::Interface for Token {
 
         spend_balance(&e, from.clone(), amount);
         receive_balance(&e, to.clone(), amount);
+
+        // Calcule o pay_day como timestamp do ledger
+        let pay_day = e.ledger().timestamp();
+
+        // Emita um evento customizado com pay_day
+        e.events().publish(
+            ("transfer_from_with_pay_day", &from, &to),
+            (amount, pay_day.clone()),
+        );
+
         TokenUtils::new(&e).events().transfer(from, to, amount);
     }
 
@@ -206,6 +216,16 @@ impl token::Interface for Token {
         spend_allowance(&e, from.clone(), spender, amount);
         spend_balance(&e, from.clone(), amount);
         receive_balance(&e, to.clone(), amount);
+
+        // Calcule o pay_day como timestamp do ledger
+        let pay_day = e.ledger().timestamp();
+
+        // Emita um evento customizado com pay_day
+        e.events().publish(
+            ("transfer_from_with_pay_day", &from, &to),
+            (amount, pay_day.clone()),
+        );
+
         TokenUtils::new(&e).events().transfer(from, to, amount)
     }
 

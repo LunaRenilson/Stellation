@@ -1,5 +1,7 @@
 use soroban_sdk::{contracttype, Address};
 
+
+
 /// Define quantos ledgers equivalem a um "dia"
 pub(crate) const DAY_IN_LEDGERS: u32 = 17280;
 
@@ -36,7 +38,9 @@ pub struct AllowanceValue {
     pub expiration_ledger: u32,
 }
 
-pub struct Rent_inf {
+#[derive(Clone)]
+#[contracttype]
+pub struct RentInf {
     pub pay_day: u64,
     pub is_paid: bool,
 }
@@ -53,5 +57,5 @@ pub enum DataKey {
     State(Address),
     Admin,
     Frozen(Address),
-    Rent_inf(Address),
+    RentInf(Address),
 }
