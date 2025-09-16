@@ -45,7 +45,8 @@ impl Token {
     ///// Cria funcao - Initializes the contract with an admin, decimals, name, and symbol ///////
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    pub fn initialize(e: Env, admin: Address, decimal: u32, name: String, symbol: String) {
+    // stellar contract deploy --wasm .\target\wasm32v1-none\release\stellation_token.wasm --source-account teste_account -- --admin GCWLLZARXMVARRXQ6P7POH4Y5YXM2DUL62UAC27CUSPWF6VVXFXGWHFH --decimal 7 --name "Stellation Token" --symbol "STEL"
+    pub fn __constructor(e: Env, admin: Address, decimal: u32, name: String, symbol: String) {
         if has_administrator(&e) {
             panic!("already initialized")
         }
